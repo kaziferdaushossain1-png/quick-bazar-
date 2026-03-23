@@ -3,114 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
-    <title>কুইক বাজার স্যানিটারি</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>কুইক বাজার - ২০% ধামাকা অফার</title>
     <style>
-        body { font-family: 'Arial', 'SolaimanLipi', sans-serif; margin: 0; background-color: #f1f2f6; text-align: center; }
+        body { font-family: 'Arial', sans-serif; margin: 0; background-color: #f1f2f6; text-align: center; color: #333; }
         
-        /* লোগো সেকশন - এটাকে ক্লিকের যোগ্য করা হয়েছে */
-        .logo-header { 
-            background: #d63031; 
-            color: white; 
-            padding: 30px 0; 
-            overflow: hidden; 
-            cursor: pointer; 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
-            border-bottom: 5px solid #b32626;
-            display: block;
-            width: 100%;
-        }
+        /* লোগো অ্যানিমেশন */
+        header { background: #d63031; color: white; padding: 25px 0; overflow: hidden; cursor: pointer; position: sticky; top: 0; z-index: 1000; border-bottom: 5px solid #b32626; }
+        .logo-scroller { display: inline-block; white-space: nowrap; font-size: 26px; font-weight: bold; animation: scroll-left 15s linear infinite; }
+        @keyframes scroll-left { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        .scroll-text { 
-            display: inline-block; 
-            white-space: nowrap; 
-            font-size: 30px; 
-            font-weight: bold; 
-            animation: moveLeft 12s linear infinite; 
-        }
-
-        @keyframes moveLeft { 
-            0% { transform: translateX(100%); } 
-            100% { transform: translateX(-100%); } 
-        }
-
-        .container { max-width: 900px; margin: auto; padding: 20px; }
-        .card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); border: 1px solid #ddd; }
-        .card img { width: 100%; max-width: 400px; border-radius: 15px; height: 250px; object-fit: cover; }
+        .container { max-width: 1100px; margin: auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 15px; padding: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 1px solid #ddd; display: flex; flex-direction: column; align-items: center; }
+        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; }
         
-        .price { color: #d63031; font-size: 32px; font-weight: bold; margin: 15px 0; }
-        .btn { display: block; width: 100%; padding: 15px; border-radius: 12px; font-weight: bold; font-size: 18px; border: none; cursor: pointer; margin-top: 10px; text-decoration: none; box-sizing: border-box; }
-        
+        .price { color: #d63031; font-size: 26px; font-weight: bold; margin: 10px 0; }
+        .old-price { font-size: 16px; text-decoration: line-through; color: #777; margin-right: 10px; }
+
+        .btn { display: block; width: 100%; padding: 12px; border-radius: 10px; font-weight: bold; font-size: 15px; border: none; cursor: pointer; margin-top: 8px; text-decoration: none; box-sizing: border-box; }
         .voice-btn { background: #6c5ce7; color: white; }
-        .bkash-btn { background: #e2136e; color: white; }
+        .bkash-btn { background: #e2136e; color: white; } /* বিকাশ কালার */
         .wa-btn { background: #25D366; color: white; }
 
-        /* প্রবেশ বাটন - এটি ল্যাপটপের ভয়েস ইঞ্জিন 'আনলক' করবে */
-        #welcome-gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #fff; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .start-now { background: #2ed573; padding: 25px 70px; border-radius: 60px; font-size: 26px; color: white; border: none; cursor: pointer; font-weight: bold; box-shadow: 0 0 30px #2ed573; }
+        #gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #fff; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .start-btn { background: #2ed573; padding: 20px 60px; border-radius: 50px; font-size: 22px; color: white; border: none; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body class="notranslate">
 
-<div id="welcome-gate">
+<div id="gate">
     <h1>কুইক বাজার স্যানিটারি শপ</h1>
-    <p style="font-size: 20px;">অডিও অফার শুনতে নিচের বাটনে ক্লিক করে দোকানে ঢুকুন</p>
-    <button class="start-now" onclick="startEngine()">দোকানে প্রবেশ করুন 🔊</button>
+    <button class="start-btn" onclick="init()">দোকানে প্রবেশ করুন (বাংলা ভয়েস) 🔊</button>
 </div>
 
-<div class="logo-header" onclick="playLogoVoice()">
-    <div class="scroll-text">
-        📢 কুইক বাজার মেগা সেল — সব স্যানিটারি মালে সরাসরি ২০% ছাড় — প্রিমিয়াম কোয়ালিটি সুলভ মূল্যে 📢
+<header onclick="speak('আসসালামু আলাইকুম! কুইক বাজারে আপনাদের স্বাগতম। আমাদের এখানে সব ধরণের স্যানিটারি মালে চলছে ২০ পার্সেন্ট স্পেশাল ডিসকাউন্ট। বাজারের সবথেকে সুলভ মূল্যে সেরা মাল নিতে এখনই আমাদের পণ্যগুলো দেখুন। ধন্যবাদ!')">
+    <div class="logo-scroller">
+        📢 কুইক বাজার মেগা সেল — সব স্যানিটারি ফিটিংস এ সরাসরি ২০% ছাড় — প্রিমিয়াম কোয়ালিটি সুলভ মূল্যে 📢
     </div>
-</div>
+</header>
 
-<div class="container" id="items-display"></div>
+<div class="container" id="product-list"></div>
 
 <script>
-    // ল্যাপটপের জন্য স্পেশাল ভয়েস ফাংশন
-    function talk(message) {
-        window.speechSynthesis.cancel(); // আগের কথা থামিয়ে নতুনটা শুরু করবে
-        let speech = new SpeechSynthesisUtterance(message);
-        speech.lang = 'bn-BD'; // বাংলা ভাষা সেট করা হলো
-        speech.rate = 0.9; 
-        window.speechSynthesis.speak(speech);
+    function speak(text) {
+        window.speechSynthesis.cancel();
+        let msg = new SpeechSynthesisUtterance(text);
+        msg.lang = 'bn-BD';
+        msg.rate = 0.9;
+        window.speechSynthesis.speak(msg);
     }
 
-    // লোগোতে ক্লিক করলে এই ভয়েসটি বাজবে
-    function playLogoVoice() {
-        talk("আসসালামু আলাইকুম! কুইক বাজারে আপনাদের স্বাগতম। আমাদের এখানে সব ধরণের স্যানিটারি মালে চলছে বিশ পার্সেন্ট ধামাকা ডিসকাউন্ট। বাজারের সবথেকে সুলভ মূল্যে সেরা মাল নিতে এখনই আমাদের পণ্যগুলো দেখুন। ধন্যবাদ!");
+    function init() {
+        document.getElementById('gate').style.display = 'none';
+        speak('স্বাগতম বন্ধু! কুইক বাজারে বিশ পার্সেন্ট ছাড়ে কেনাকাটা করুন।');
     }
 
-    // শুরুতে বাটন ক্লিক করলে যা হবে
-    function startEngine() {
-        document.getElementById('welcome-gate').style.display = 'none';
-        talk("কুইক বাজারে আপনাদের স্বাগতম। লোগোতে ক্লিক করে আমাদের আজকের স্পেশাল অফারটি শুনুন।");
-    }
-
+    // ২০টি পণ্যের লিস্ট
     const products = [
-        {name: "ম্যাজিক কল (SS)", price: 850, desc: "এটি একটি উন্নত মানের মরিচারোধী স্টিল কল। যা অনেক বছর নতুনের মতো সেবা দেবে।"},
-        {name: "সিরামিক বেসিন (Royal)", price: 4500, desc: "আধুনিক সাদা বেসিন। আপনার বাথরুমের সৌন্দর্য অনেক গুণ বাড়িয়ে দেবে।"},
-        {name: "স্মার্ট কমোড (One Piece)", price: 12000, desc: "অটো ফ্লাশ সিস্টেমের আধুনিক কমোড। অনেক আরামদায়ক ও টেকসই।"}
+        {n: "ম্যাজিক কল (SS)", p: 850, d: "মরিচারোধী স্টিল কল।"},
+        {n: "সিরামিক বেসিন", p: 4500, d: "আধুনিক সাদা বেসিন।"},
+        {n: "স্মার্ট কমোড", p: 12000, d: "অটো ফ্লাশ সিস্টেমের কমোড।"},
+        {n: "হাই প্রেসার শাওয়ার", p: 1250, d: "তীব্র পানির প্রবাহ দেবে।"},
+        {n: "বেসিন মিক্সার", p: 2800, d: "গরম ও ঠান্ডা পানির কল।"},
+        {n: "কিচেন সিঙ্ক (Double)", p: 5500, d: "মজবুত স্টিলের সিঙ্ক।"},
+        {n: "হ্যান্ড শাওয়ার", p: 950, d: "সহজে ব্যবহারযোগ্য শাওয়ার।"},
+        {n: "পুশ শাওয়ার সেট", p: 750, d: "উন্নত মানের বাথরুম ফিটিংস।"},
+        {n: "পিভিসি বিবি কক", p: 180, d: "টেকসই প্লাস্টিক কল।"},
+        {n: "বেসিন ক্যাবিনেট", p: 8500, d: "বিলাসবহুল বাথরুম ফার্নিচার।"},
+        {n: "ম্যাজিক পাইপ", p: 120, d: "সহজে বাঁকানো যায় এমন পাইপ।"},
+        {n: "সোপ হোল্ডার", p: 350, d: "স্টিলের সাবান দানি।"},
+        {n: "তাওয়াল রেল", p: 1100, d: "তোয়ালে রাখার মজবুত স্টাইলিশ রড।"},
+        {n: "ফ্লোর ড্রেন", p: 450, d: "পানি নিষ্কাশনের জন্য সেরা।"},
+        {n: "কিচেন ট্যাপ", p: 1400, d: "রান্নাঘরের জন্য আধুনিক কল।"},
+        {n: "গ্লাস সেলফ", p: 1800, d: "জিনিস রাখার কাঁচের তাক।"},
+        {n: "অ্যাঙ্গেল স্টপ কক", p: 550, d: "পানির প্রবাহ নিয়ন্ত্রক কল।"},
+        {n: "মিরর সেট", p: 2200, d: "উন্নত মানের বাথরুম আয়না।"},
+        {n: "বেসিন ওয়েস্ট", p: 300, d: "পানির লাইন কানেক্টর।"},
+        {n: "কনসিল্ড স্টপ কক", p: 1600, d: "দেয়ালের ভেতরের পানির কল।"}
     ];
 
-    const display = document.getElementById('items-display');
-    products.forEach((p, i) => {
-        let final = Math.floor(p.price * 0.8);
-        let detailText = `পণ্যের নাম ${p.name}। বিশ পার্সেন্ট ছাড়ে এখন পাচ্ছেন মাত্র ${final} টাকায়। গুণাগুণ হলো, ${p.desc}`;
+    const list = document.getElementById('product-list');
+    products.forEach((item, i) => {
+        let final = Math.floor(item.p * 0.8);
+        let detail = `পণ্যের নাম ${item.n}। দাম মাত্র ${final} টাকা। ${item.d}`;
         
-        display.innerHTML += `
+        list.innerHTML += `
             <div class="card">
-                <img src="https://picsum.photos/600/400?random=${i}" alt="Product">
-                <h2 style="font-size:26px;">${p.name}</h2>
-                <div class="price">৳${final}</div>
-                <button class="btn voice-btn" onclick="talk('${detailText}')">🔊 বিবরণ ও অফার শুনুন</button>
-                <a href="#" class="btn bkash-btn">বিকাশ পেমেন্ট (২০% ছাড়)</a>
-                <a href="https://wa.me/8801700000000" class="btn wa-btn" target="_blank">WhatsApp অর্ডার</a>
+                <img src="https://picsum.photos/400/300?random=${i}" alt="Sanitary">
+                <h3 style="font-size:18px;">${item.n}</h3>
+                <div class="price"><span class="old-price">৳${item.p}</span>৳${final}</div>
+                <button class="btn voice-btn" onclick="speak('${detail}')">🔊 বিবরণ শুনুন</button>
+                <a href="#" class="btn bkash-btn">বিকাশ পেমেন্ট করুন</a>
+                <a href="https://wa.me/8801700000000" class="btn wa-btn">WhatsApp অর্ডার</a>
             </div>
         `;
     });
 </script>
-
 </body>
 </html>
