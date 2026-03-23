@@ -4,77 +4,74 @@
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>কুইক বাজার - প্রো লেভেল স্যানিটারি শপ</title>
+    <title>কুইক বাজার - আলটিমেট স্যানিটারি শপ</title>
     <style>
-        :root { --p: #d63031; --s: #2d3436; --v: #6c5ce7; --bg: #f5f6fa; }
-        body { font-family: 'Arial', sans-serif; margin: 0; background: var(--bg); overflow-x: hidden; }
+        :root { --p: #d63031; --s: #2d3436; --v: #6c5ce7; --bg: #f1f2f6; }
+        body { font-family: 'Arial', sans-serif; margin: 0; background: var(--bg); text-align: center; }
         
-        /* প্রো লেভেল রেইনবো হেডার */
+        /* ডানে-বামে চলা রঙিন লোগো */
         header { 
-            background: var(--s); color: white; padding: 25px 0; position: sticky; top: 0; z-index: 1000;
-            border-bottom: 8px solid; animation: rainbow 5s infinite; cursor: pointer;
+            background: var(--s); color: white; padding: 20px 0; position: sticky; top: 0; z-index: 1000;
+            border-bottom: 6px solid; animation: rainbow 5s infinite; overflow: hidden;
         }
         @keyframes rainbow { 0%{border-color:#ff4757} 33%{border-color:#2ed573} 66%{border-color:#3742fa} 100%{border-color:#ff4757} }
         
-        .nav-tools { background: white; padding: 10px; display: flex; justify-content: center; gap: 10px; sticky; top: 80px; z-index: 999; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .nav-tools input { padding: 10px; border-radius: 20px; border: 1px solid #ddd; width: 60%; }
+        .moving-text { font-size: 24px; font-weight: bold; white-space: nowrap; display: inline-block; animation: scrollLeft 15s linear infinite; }
+        @keyframes scrollLeft { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        .container { max-width: 1200px; margin: 20px auto; padding: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+
+        /* কার্ড ডিজাইন */
+        .card { background: white; border-radius: 20px; padding: 15px; border: 1px solid #eee; transition: 0.3s; position: relative; overflow: hidden; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
         
-        .cart-icon { position: fixed; top: 100px; right: 20px; background: var(--p); color: white; padding: 15px; border-radius: 50%; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 2000; cursor: pointer; font-weight: bold; }
+        /* ২০% ছাড়ের হাইলাইট এনিমেশন (বড়-ছোট হওয়া) */
+        .discount-badge { 
+            position: absolute; top: 15px; right: 15px; background: var(--p); color: white; 
+            padding: 10px; border-radius: 50%; font-size: 14px; font-weight: bold; 
+            z-index: 10; box-shadow: 0 4px 15px rgba(214, 48, 49, 0.4);
+            display: flex; align-items: center; justify-content: center; line-height: 1.2;
+            animation: zoomInOut 1.2s infinite ease-in-out; /* একবার বড় একবার ছোট হওয়ার এনিমেশন */
+        }
 
-        .container { max-width: 1200px; margin: 20px auto; padding: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        @keyframes zoomInOut {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.5); background: #ff4757; box-shadow: 0 0 20px #ff4757; }
+            100% { transform: scale(0.8); }
+        }
 
-        /* কার্ড প্রো ডিজাইন */
-        .card { background: white; border-radius: 20px; padding: 15px; border: 1px solid #eee; transition: 0.3s; position: relative; }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; }
+        .card img { width: 100%; height: 230px; object-fit: cover; border-radius: 15px; }
+        .price-tag { font-size: 30px; color: var(--p); font-weight: bold; margin: 10px 0; }
+
+        /* প্লাস-মাইনাস কন্ট্রোল */
+        .cart-controls { display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 10px; background: #f9f9f9; padding: 10px; border-radius: 10px; }
+        .q-btn { background: #ddd; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 20px; font-weight: bold; }
         
-        .price-tag { font-size: 28px; color: var(--p); font-weight: bold; margin: 10px 0; }
-        .bn-num { font-family: inherit; }
-
-        .btn { width: 100%; padding: 12px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; margin-top: 8px; font-size: 15px; transition: 0.2s; display: block; text-decoration: none; text-align: center; }
+        .btn { width: 100%; padding: 12px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; margin-top: 8px; font-size: 16px; text-decoration: none; display: block; }
+        .btn-b { background: #e2136e; color: white; }
         .btn-v { background: var(--v); color: white; }
-        .btn-b { background: #e2136e; color: white; animation: shake 3s infinite; }
         .btn-w { background: #25D366; color: white; }
-        
-        @keyframes shake { 0%, 100% {transform: scale(1);} 50% {transform: scale(1.05);} }
 
-        /* পেমেন্ট পপআপ */
-        #payment-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 20px; box-shadow: 0 0 100px rgba(0,0,0,0.5); z-index: 5000; width: 90%; max-width: 400px; }
-        
         #gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #fff; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
     </style>
 </head>
 <body class="notranslate">
 
 <div id="gate">
-    <h1 style="font-size: 40px;">QUICK BAZAR</h1>
-    <p>প্রো-লেভেল স্যানিটারি শপিং এ স্বাগতম</p>
-    <button onclick="startApp()" style="background:#2ed573; color:white; padding:20px 50px; border-radius:50px; font-size:24px; border:none; cursor:pointer;">দোকানে প্রবেশ করুন 🔊</button>
+    <h1>QUICK BAZAR PRO</h1>
+    <button onclick="startApp()" style="background:#2ed573; color:white; padding:20px 50px; border-radius:50px; font-size:24px; border:none; cursor:pointer; font-weight:bold;">দোকানে প্রবেশ করুন 🔊</button>
 </div>
 
-<div class="cart-icon" onclick="showCart()">🛒 <span id="cart-count">০</span></div>
-
-<header onclick="speak('আসসালামু আলাইকুম কাজী ফেরদৌস ভাই! কুইক বাজারের প্রো লেভেল সাইটে আপনাকে স্বাগতম।')">
-    <marquee scrollamount="12" style="font-size: 26px; font-weight: bold;">📢 কুইক বাজার মেগা সেল — ২০% ডিসকাউন্ট — প্রিমিয়াম কোয়ালিটি সুলভ মূল্যে 📢</marquee>
+<header>
+    <div class="moving-text">
+        📢 কুইক বাজার ধামাকা অফার — সব স্যানিটারি মালে সরাসরি ২০% ছাড় — প্রিমিয়াম কোয়ালিটি সুলভ মূল্যে — আমাদের এখানে আসার জন্য ধন্যবাদ 📢
+    </div>
 </header>
-
-<div class="nav-tools">
-    <input type="text" id="src" placeholder="কি খুঁজছেন? (যেমন: কল, বেসিন...)" onkeyup="search()">
-</div>
 
 <div class="container" id="grid"></div>
 
-<div id="payment-modal">
-    <h2 style="color: #e2136e;">বিকাশ পেমেন্ট গেটওয়ে</h2>
-    <div id="memo-content" style="text-align: left; background: #f9f9f9; padding: 10px; border-radius: 10px; margin: 10px 0;"></div>
-    <input type="text" id="cust-name" placeholder="আপনার নাম" style="width: 100%; padding: 10px; margin: 5px 0;">
-    <button onclick="confirmPay()" class="btn btn-b">পেমেন্ট নিশ্চিত করুন</button>
-    <button onclick="closeModal()" class="btn" style="background:#ccc;">বন্ধ করুন</button>
-</div>
-
 <script>
     const bnNum = n => String(n).replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
-    let cart = 0;
 
     function speak(t) {
         window.speechSynthesis.cancel();
@@ -85,63 +82,59 @@
 
     function startApp() {
         document.getElementById('gate').style.display = 'none';
-        speak("স্বাগতম বন্ধু! কুইক বাজারে এখন আপনি পাচ্ছেন প্রিমিয়াম শপিং অভিজ্ঞতা। বিশ পার্সেন্ট ছাড়ে কেনাকাটা শুরু করুন।");
+        speak("স্বাগতম কাজী ফেরদৌস ভাই! ২০ পার্সেন্ট স্পেশাল ছাড়ের অফারগুলো দেখুন।");
     }
 
     const items = [
-        {n: "ম্যাজিক কল (SS)", p: 850, d: "মরিচারোধী স্টিল।"},
-        {n: "সিরামিক বেসিন", p: 4500, d: "রাজকীয় সাদা ডিজাইন।"},
-        {n: "স্মার্ট কমোড", p: 12000, d: "অটো ফ্লাশ সুবিধা।"},
-        {n: "হাই প্রেসার শাওয়ার", p: 1250, d: "তীব্র পানির প্রবাহ।"},
-        {n: "বেসিন মিক্সার", p: 2800, d: "গরম-ঠান্ডা পানির কল।"},
-        {n: "কিচেন ডাবল সিঙ্ক", p: 5500, d: "মজবুত স্টেইনলেস স্টিল।"},
-        {n: "মিরর গ্লাস সেট", p: 2200, d: "উন্নত মানের আয়না।"},
-        {n: "বেসিন ক্যাবিনেট", p: 8500, d: "আধুনিক স্টোরেজ সুবিধা।"},
-        {n: "পিভিসি বিবি কক", p: 180, d: "টেকসই প্লাস্টিক কল।"},
-        {n: "সোপ হোল্ডার", p: 350, d: "স্টিলের সাবান দানি।"}
+        {name: "ম্যাজিক কল (SS)", p: 850, d: "মরিচারোধী স্টিল।"},
+        {name: "সিরামিক বেসিন", p: 4500, d: "রাজকীয় সাদা ডিজাইন।"},
+        {name: "স্মার্ট কমোড", p: 12000, d: "অটো ফ্লাশ সুবিধা।"},
+        {name: "হাই প্রেসার শাওয়ার", p: 1250, d: "তীব্র পানির প্রবাহ।"},
+        {name: "বেসিন মিক্সার", p: 2800, d: "গরম-ঠান্ডা পানির কল।"},
+        {name: "কিচেন ডাবল সিঙ্ক", p: 5500, d: "মজবুত স্টেইনলেস স্টিল।"},
+        {name: "মিরর গ্লাস সেট", p: 2200, d: "উন্নত মানের আয়না।"},
+        {name: "বেসিন ক্যাবিনেট", p: 8500, d: "আধুনিক স্টোরেজ সুবিধা।"},
+        {name: "পিভিসি বিবি কক", p: 180, d: "টেকসই প্লাস্টিক কল।"},
+        {name: "সোপ হোল্ডার", p: 350, d: "স্টিলের সাবান দানি।"}
     ];
 
-    function render(data) {
+    function render() {
         const grid = document.getElementById('grid');
         grid.innerHTML = "";
-        data.forEach((p, i) => {
-            let disc = Math.floor(p.p * 0.8);
+        items.forEach((p, i) => {
+            let discPrice = Math.floor(p.p * 0.8);
             grid.innerHTML += `
                 <div class="card">
-                    <img src="https://picsum.photos/400/400?random=${i+100}">
-                    <h3 style="margin:10px 0;">${p.n}</h3>
-                    <div class="price-tag">৳${bnNum(disc)}</div>
-                    <button class="btn btn-v" onclick="speak('পণ্যের নাম ${p.n}। বিশ পার্সেন্ট ছাড়ে দাম ${bnNum(disc)} টাকা। ${p.d}')">🔊 বিবরণ শুনুন</button>
-                    <button class="btn btn-b" onclick="openPay('${p.n}', ${disc})">💳 বিকাশ পেমেন্ট</button>
-                    <button class="btn" style="background:#eee;" onclick="addCart()">🛒 কার্টে যোগ করুন</button>
+                    <div class="discount-badge">২০%<br>ছাড়</div>
+                    <img src="https://picsum.photos/400/400?random=${i+205}">
+                    <h3 style="margin:10px 0;">${p.name}</h3>
+                    <div class="price-tag">৳${bnNum(discPrice)}</div>
+                    
+                    <div class="cart-controls">
+                        <button class="q-btn" onclick="updateQty(${i}, -1)">-</button>
+                        <span id="qty-${i}" style="font-weight:bold; font-size:22px; width:40px; display:inline-block;">০</span>
+                        <button class="q-btn" onclick="updateQty(${i}, 1)">+</button>
+                    </div>
+
+                    <button class="btn btn-v" onclick="speak('পণ্যের নাম ${p.name}। বিশ পার্সেন্ট ছাড়ে দাম ${bnNum(discPrice)} টাকা। ${p.d}')">🔊 বিবরণ শুনুন</button>
+                    <a href="#" class="btn btn-b">💳 বিকাশ পেমেন্ট</a>
                     <a href="https://wa.me/8801700000000" class="btn btn-w">WhatsApp অর্ডার</a>
                 </div>`;
         });
     }
 
-    function addCart() { cart++; document.getElementById('cart-count').innerText = bnNum(cart); speak("কার্টে যোগ করা হয়েছে।"); }
-    
-    function openPay(name, price) {
-        document.getElementById('memo-content').innerHTML = `<b>পণ্য:</b> ${name}<br><b>পরিশোধযোগ্য:</b> ৳${bnNum(price)}`;
-        document.getElementById('payment-modal').style.display = 'block';
+    function updateQty(index, change) {
+        let qtyElem = document.getElementById(`qty-${index}`);
+        let currentQty = parseInt(qtyElem.innerText.replace(/[০-৯]/g, d => "০১২৩৪৫৬৭৮৯".indexOf(d)));
+        let newQty = currentQty + change;
+        if (newQty >= 0) {
+            qtyElem.innerText = bnNum(newQty);
+            if(change > 0) speak("এক পিস যোগ হলো");
+            else if(newQty >= 0) speak("সরানো হলো");
+        }
     }
 
-    function closeModal() { document.getElementById('payment-modal').style.display = 'none'; }
-    
-    function confirmPay() {
-        let name = document.getElementById('cust-name').value;
-        if(!name) { alert("নাম লিখুন!"); return; }
-        speak(`ধন্যবাদ ${name}। আপনার অর্ডারটি গ্রহণ করা হয়েছে।`);
-        alert("অর্ডার সফল হয়েছে!");
-        closeModal();
-    }
-
-    function search() {
-        let v = document.getElementById('src').value.toLowerCase();
-        render(items.filter(i => i.n.toLowerCase().includes(v)));
-    }
-
-    render(items);
+    render();
 </script>
 </body>
 </html>
