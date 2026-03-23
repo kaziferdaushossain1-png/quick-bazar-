@@ -4,53 +4,53 @@
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>কুইক বাজার - আলটিমেট স্যানিটারি শপ</title>
+    <title>কুইক বাজার - আলটিমেট প্রো শপ</title>
     <style>
         :root { --p: #d63031; --s: #2d3436; --v: #6c5ce7; --bg: #f1f2f6; }
         body { font-family: 'Arial', sans-serif; margin: 0; background: var(--bg); text-align: center; }
         
-        /* ডানে-বামে চলা রঙিন লোগো */
+        /* হেডার ও বড়-ছোট হওয়া চলন্ত লোগো */
         header { 
-            background: var(--s); color: white; padding: 20px 0; position: sticky; top: 0; z-index: 1000;
+            background: var(--s); color: white; padding: 25px 0; position: sticky; top: 0; z-index: 1000;
             border-bottom: 6px solid; animation: rainbow 5s infinite; overflow: hidden;
         }
         @keyframes rainbow { 0%{border-color:#ff4757} 33%{border-color:#2ed573} 66%{border-color:#3742fa} 100%{border-color:#ff4757} }
         
-        .moving-text { font-size: 24px; font-weight: bold; white-space: nowrap; display: inline-block; animation: scrollLeft 15s linear infinite; }
+        .moving-text { 
+            font-size: 24px; font-weight: bold; white-space: nowrap; display: inline-block; 
+            animation: scrollLeft 15s linear infinite, textZoom 2s infinite ease-in-out; 
+        }
         @keyframes scrollLeft { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        @keyframes textZoom { 0%, 100% { font-size: 24px; } 50% { font-size: 30px; color: #feca57; } }
 
         .container { max-width: 1200px; margin: 20px auto; padding: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
 
-        /* কার্ড ডিজাইন */
         .card { background: white; border-radius: 20px; padding: 15px; border: 1px solid #eee; transition: 0.3s; position: relative; overflow: hidden; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
         
-        /* ২০% ছাড়ের হাইলাইট এনিমেশন (বড়-ছোট হওয়া) */
+        /* ২০% ছাড়ের এনিমেশন */
         .discount-badge { 
             position: absolute; top: 15px; right: 15px; background: var(--p); color: white; 
-            padding: 10px; border-radius: 50%; font-size: 14px; font-weight: bold; 
-            z-index: 10; box-shadow: 0 4px 15px rgba(214, 48, 49, 0.4);
-            display: flex; align-items: center; justify-content: center; line-height: 1.2;
-            animation: zoomInOut 1.2s infinite ease-in-out; /* একবার বড় একবার ছোট হওয়ার এনিমেশন */
+            padding: 10px; border-radius: 50%; font-size: 14px; font-weight: bold; z-index: 10;
+            animation: zoomInOut 1.2s infinite ease-in-out;
         }
 
-        @keyframes zoomInOut {
-            0% { transform: scale(0.8); }
-            50% { transform: scale(1.5); background: #ff4757; box-shadow: 0 0 20px #ff4757; }
-            100% { transform: scale(0.8); }
-        }
+        @keyframes zoomInOut { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.4); box-shadow: 0 0 20px var(--p); } }
 
         .card img { width: 100%; height: 230px; object-fit: cover; border-radius: 15px; }
         .price-tag { font-size: 30px; color: var(--p); font-weight: bold; margin: 10px 0; }
 
-        /* প্লাস-মাইনাস কন্ট্রোল */
-        .cart-controls { display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 10px; background: #f9f9f9; padding: 10px; border-radius: 10px; }
-        .q-btn { background: #ddd; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 20px; font-weight: bold; }
+        .btn { width: 100%; padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 18px; text-decoration: none; display: block; box-sizing: border-box; }
         
-        .btn { width: 100%; padding: 12px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; margin-top: 8px; font-size: 16px; text-decoration: none; display: block; }
-        .btn-b { background: #e2136e; color: white; }
+        /* বিকাশ ও WhatsApp বাটন এনিমেশন */
+        .btn-b { background: #e2136e; color: white; animation: btnZoom 1.5s infinite ease-in-out; }
+        .btn-w { background: #25D366; color: white; animation: btnZoom 1.5s infinite ease-in-out; animation-delay: 0.5s; }
+        
+        @keyframes btnZoom { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+
         .btn-v { background: var(--v); color: white; }
-        .btn-w { background: #25D366; color: white; }
+
+        .cart-controls { display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 10px; background: #f9f9f9; padding: 10px; border-radius: 10px; }
+        .q-btn { background: #ddd; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 20px; }
 
         #gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #fff; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
     </style>
@@ -59,12 +59,12 @@
 
 <div id="gate">
     <h1>QUICK BAZAR PRO</h1>
-    <button onclick="startApp()" style="background:#2ed573; color:white; padding:20px 50px; border-radius:50px; font-size:24px; border:none; cursor:pointer; font-weight:bold;">দোকানে প্রবেশ করুন 🔊</button>
+    <button onclick="startApp()" style="background:#2ed573; color:white; padding:20px 50px; border-radius:50px; font-size:24px; border:none; cursor:pointer; font-weight:bold;">প্রবেশ করুন 🔊</button>
 </div>
 
 <header>
     <div class="moving-text">
-        📢 কুইক বাজার ধামাকা অফার — সব স্যানিটারি মালে সরাসরি ২০% ছাড় — প্রিমিয়াম কোয়ালিটি সুলভ মূল্যে — আমাদের এখানে আসার জন্য ধন্যবাদ 📢
+        📢 কুইক বাজার ধামাকা সেল — সব স্যানিটারি মালে ২০% ছাড় — প্রিমিয়াম কোয়ালিটি সুলভ মূল্যে — কাজী ফেরদৌস ভাই 📢
     </div>
 </header>
 
@@ -82,20 +82,20 @@
 
     function startApp() {
         document.getElementById('gate').style.display = 'none';
-        speak("স্বাগতম কাজী ফেরদৌস ভাই! ২০ পার্সেন্ট স্পেশাল ছাড়ের অফারগুলো দেখুন।");
+        speak("আসসালামু আলাইকুম কাজী ফেরদৌস ভাই! প্রো লেভেল ধামাকা অফারগুলো দেখুন।");
     }
 
     const items = [
-        {name: "ম্যাজিক কল (SS)", p: 850, d: "মরিচারোধী স্টিল।"},
-        {name: "সিরামিক বেসিন", p: 4500, d: "রাজকীয় সাদা ডিজাইন।"},
-        {name: "স্মার্ট কমোড", p: 12000, d: "অটো ফ্লাশ সুবিধা।"},
-        {name: "হাই প্রেসার শাওয়ার", p: 1250, d: "তীব্র পানির প্রবাহ।"},
-        {name: "বেসিন মিক্সার", p: 2800, d: "গরম-ঠান্ডা পানির কল।"},
-        {name: "কিচেন ডাবল সিঙ্ক", p: 5500, d: "মজবুত স্টেইনলেস স্টিল।"},
-        {name: "মিরর গ্লাস সেট", p: 2200, d: "উন্নত মানের আয়না।"},
-        {name: "বেসিন ক্যাবিনেট", p: 8500, d: "আধুনিক স্টোরেজ সুবিধা।"},
-        {name: "পিভিসি বিবি কক", p: 180, d: "টেকসই প্লাস্টিক কল।"},
-        {name: "সোপ হোল্ডার", p: 350, d: "স্টিলের সাবান দানি।"}
+        {n: "ম্যাজিক কল (SS)", p: 850, d: "মরিচারোধী স্টিল।"},
+        {n: "সিরামিক বেসিন", p: 4500, d: "রাজকীয় সাদা ডিজাইন।"},
+        {n: "স্মার্ট কমোড", p: 12000, d: "অটো ফ্লাশ সুবিধা।"},
+        {n: "হাই প্রেসার শাওয়ার", p: 1250, d: "তীব্র পানির প্রবাহ।"},
+        {n: "বেসিন মিক্সার", p: 2800, d: "গরম-ঠান্ডা পানির কল।"},
+        {n: "কিচেন ডাবল সিঙ্ক", p: 5500, d: "মজবুত স্টেইনলেস স্টিল।"},
+        {n: "মিরর গ্লাস সেট", p: 2200, d: "উন্নত মানের আয়না।"},
+        {n: "বেসিন ক্যাবিনেট", p: 8500, d: "আধুনিক স্টোরেজ সুবিধা।"},
+        {n: "পিভিসি বিবি কক", p: 180, d: "টেকসই প্লাস্টিক কল।"},
+        {n: "সোপ হোল্ডার", p: 350, d: "স্টিলের সাবান দানি।"}
     ];
 
     function render() {
@@ -106,8 +106,8 @@
             grid.innerHTML += `
                 <div class="card">
                     <div class="discount-badge">২০%<br>ছাড়</div>
-                    <img src="https://picsum.photos/400/400?random=${i+205}">
-                    <h3 style="margin:10px 0;">${p.name}</h3>
+                    <img src="https://picsum.photos/400/400?random=${i+200}">
+                    <h3 style="margin:10px 0;">${p.n}</h3>
                     <div class="price-tag">৳${bnNum(discPrice)}</div>
                     
                     <div class="cart-controls">
@@ -116,7 +116,7 @@
                         <button class="q-btn" onclick="updateQty(${i}, 1)">+</button>
                     </div>
 
-                    <button class="btn btn-v" onclick="speak('পণ্যের নাম ${p.name}। বিশ পার্সেন্ট ছাড়ে দাম ${bnNum(discPrice)} টাকা। ${p.d}')">🔊 বিবরণ শুনুন</button>
+                    <button class="btn btn-v" onclick="speak('পণ্যের নাম ${p.n}। বিশ পার্সেন্ট ছাড়ে দাম ${bnNum(discPrice)} টাকা। ${p.d}')">🔊 বিবরণ শুনুন</button>
                     <a href="#" class="btn btn-b">💳 বিকাশ পেমেন্ট</a>
                     <a href="https://wa.me/8801700000000" class="btn btn-w">WhatsApp অর্ডার</a>
                 </div>`;
@@ -130,7 +130,7 @@
         if (newQty >= 0) {
             qtyElem.innerText = bnNum(newQty);
             if(change > 0) speak("এক পিস যোগ হলো");
-            else if(newQty >= 0) speak("সরানো হলো");
+            else speak("সরানো হলো");
         }
     }
 
