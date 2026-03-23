@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>কুইক বাজার - স্যানিটারি স্পেশাল</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; margin: 0; background-color: #f4f7f6; text-align: center; color: #333; }
+        header { background: #0984e3; color: white; padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .moving-text { font-size: 22px; font-weight: bold; white-space: nowrap; }
+        .container { max-width: 1000px; margin: auto; padding: 15px; }
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .card { background: white; border-radius: 15px; padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: relative; border: 1px solid #dfe6e9; }
+        .discount-tag { position: absolute; top: 10px; left: 10px; background: #ff7675; color: white; padding: 4px 8px; border-radius: 5px; font-size: 12px; font-weight: bold; }
+        .card img { width: 100%; border-radius: 10px; height: 150px; object-fit: cover; background: #eee; }
+        .name { font-size: 16px; font-weight: bold; margin: 10px 0 5px; color: #2d3436; }
+        .price-box { margin-bottom: 10px; }
+        .old-price { color: #b2bec3; text-decoration: line-through; font-size: 14px; }
+        .new-price { color: #00b894; font-size: 20px; font-weight: bold; }
+        
+        /* ভয়েস বাটন স্টাইল */
+        .voice-btn { background: #6c5ce7; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-size: 13px; font-weight: bold; margin-bottom: 5px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .wa-btn { background: #25D366; color: white; text-decoration: none; display: block; padding: 10px; border-radius: 5px; font-weight: bold; font-size: 14px; margin-top: 5px; }
+        
+        footer { padding: 30px; background: #2d3436; color: white; margin-top: 30px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <marquee class="moving-text" behavior="scroll" direction="left" scrollamount="7">
+        🚰 কুইক বাজার স্যানিটারি স্টোর — সকল ফিটিংস ও মালের ওপর ২০% সরাসরি ছাড়! — ১০০০+ আইটেম স্টক এ আছে — দ্রুত অর্ডার করুন —
+    </marquee>
+</header>
+
+<div class="container">
+    <div class="product-grid" id="sanitary-shop">
+        </div>
+</div>
+
+<footer>
+    <p>&copy; ২০২৬ কুইক বাজার | স্যানিটারি আইটেম বিশেষজ্ঞ</p>
+</footer>
+
+<script>
+    // ১০টি স্যানিটারি মালের ডাটা (নাম, ছবি, দাম এবং বর্ণনা)
+    const products = [
+        {name: "ম্যাজিক কল (Stainless Steel)", img: "https://picsum.photos/300/300?random=1", price: 850, desc: "এটি একটি উন্নত মানের মরিচারোধী স্টেইনলেস স্টিল কল। দীর্ঘস্থায়ী ব্যবহারের নিশ্চয়তা।"},
+        {name: "লাক্সারি বেসিন (Ceramic)", img: "https://picsum.photos/300/300?random=2", price: 4500, desc: "আধুনিক ডিজাইনের সাদা সিরামিক বেসিন। আপনার বাথরুমের সৌন্দর্য বাড়াতে অতুলনীয়।"},
+        {name: "স্মার্ট কমোড (One Piece)", img: "https://picsum.photos/300/300?random=3", price: 12000, desc: "অটো ফ্লাশ সিস্টেম সম্বলিত ওয়ান পিস স্মার্ট কমোড। অনেক আরামদায়ক ও টেকসই।"},
+        {name: "হাই-প্রেসার শাওয়ার", img: "https://picsum.photos/300/300?random=4", price: 1200, desc: "তীব্র পানির প্রবাহ নিশ্চিত করতে এই শাওয়ার সেটটি সেরা। সেটআপ করা খুব সহজ।"},
+        {name: "প্লাস্টিক বিবি কক (PVC)", img: "https://picsum.photos/300/300?random=5", price: 150, desc: "উন্নত মানের পিভিসি প্লাস্টিক দিয়ে তৈরি এই কলটি সহজে নষ্ট হবে না।"},
+        {name: "কিচেন সিঙ্ক (Double Tray)", img: "https://picsum.photos/300/300?random=6", price: 3500, desc: "রান্নাঘরের জন্য ডাবল ট্রের বিশাল সিঙ্ক। এটি স্ক্র্যাচ পড়বে না এবং পরিষ্কার করা সহজ।"},
+        {name: "হ্যান্ড শাওয়ার সেট", img: "https://picsum.photos/300/300?random=7", price: 950, desc: "আরামদায়ক গোসলের জন্য ফ্লেক্সিবল হ্যান্ড শাওয়ার। মরিচা পড়ার ভয় নেই।"},
+        {name: "অ্যাঙ্গেল স্টপ কক", img: "https://picsum.photos/300/300?random=8", price: 450, desc: "ভারী ব্রাশ দিয়ে তৈরি এই স্টপ ককটি পানির লিকেজ বন্ধ রাখতে সক্ষম।"},
+        {name: "বেসিন মিক্সার কল", img: "https://picsum.photos/300/300?random=9", price: 2800, desc: "গরম ও ঠান্ডা পানি মিক্স করার আধুনিক কল। প্রিমিয়াম ফিনিশিং।"},
+        {name: "ফ্লোর ড্রেন ট্র্যাপ", img: "https://picsum.photos/300/300?random=10", price: 300, desc: "বাথরুমের বাজে গন্ধ রোধ করতে এই স্টেইনলেস স্টিল ড্রেন ট্র্যাপটি দারুণ কার্যকর।"}
+    ];
+
+    const shop = document.getElementById('sanitary-shop');
+
+    // ভয়েস ফাংশন
+    function speakDescription(name, price, finalPrice, desc) {
+        window.speechSynthesis.cancel(); // আগের ভয়েস বন্ধ করবে
+        const speechText = `পণ্যের নাম: ${name}। এর আসল দাম ${price} টাকা। কিন্তু ২০ শতাংশ ডিসকাউন্টে আপনি পাচ্ছেন মাত্র ${finalPrice} টাকায়। বিবরণ: ${desc}`;
+        const speech = new SpeechSynthesisUtterance(speechText);
+        speech.lang = 'bn-BD';
+        speech.rate = 1.0;
+        window.speechSynthesis.speak(speech);
+    }
+
+    // ১০০০টি মালের জন্য লুপ (১০টি মালের ডাটা ঘুরিয়ে ফিরিয়ে আসবে)
+    for (let i = 0; i < 1000; i++) {
+        let p = products[i % products.length];
+        let disc = Math.floor(p.price * 0.2);
+        let finalP = p.price - disc;
+
+        shop.innerHTML += `
+            <div class="card">
+                <div class="discount-tag">২০% ছাড়</div>
+                <img src="${p.img}" alt="${p.name}">
+                <div class="name">${p.name} - মডেল ${i+101}</div>
+                <div class="price-box">
+                    <span class="old-price">৳${p.price}</span>
+                    <span class="new-price">৳${finalP}</span>
+                </div>
+                <button class="voice-btn" onclick="speakDescription('${p.name}', ${p.price}, ${finalP}, '${p.desc}')">🔊 বিবরণ শুনুন</button>
+                <a href="https://wa.me/8801700000000" class="wa-btn">WhatsApp অর্ডার</a>
+            </div>
+        `;
+    }
+</script>
+
+</body>
+</html>
