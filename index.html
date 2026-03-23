@@ -4,100 +4,144 @@
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>কুইক বাজার - ২০% ধামাকা অফার</title>
+    <title>কুইক বাজার - প্রো লেভেল স্যানিটারি শপ</title>
     <style>
-        body { font-family: 'Arial', sans-serif; margin: 0; background-color: #f1f2f6; text-align: center; color: #333; }
+        :root { --p: #d63031; --s: #2d3436; --v: #6c5ce7; --bg: #f5f6fa; }
+        body { font-family: 'Arial', sans-serif; margin: 0; background: var(--bg); overflow-x: hidden; }
         
-        /* লোগো অ্যানিমেশন */
-        header { background: #d63031; color: white; padding: 25px 0; overflow: hidden; cursor: pointer; position: sticky; top: 0; z-index: 1000; border-bottom: 5px solid #b32626; }
-        .logo-scroller { display: inline-block; white-space: nowrap; font-size: 26px; font-weight: bold; animation: scroll-left 15s linear infinite; }
-        @keyframes scroll-left { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-
-        .container { max-width: 1100px; margin: auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: white; border-radius: 15px; padding: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 1px solid #ddd; display: flex; flex-direction: column; align-items: center; }
-        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; }
+        /* প্রো লেভেল রেইনবো হেডার */
+        header { 
+            background: var(--s); color: white; padding: 25px 0; position: sticky; top: 0; z-index: 1000;
+            border-bottom: 8px solid; animation: rainbow 5s infinite; cursor: pointer;
+        }
+        @keyframes rainbow { 0%{border-color:#ff4757} 33%{border-color:#2ed573} 66%{border-color:#3742fa} 100%{border-color:#ff4757} }
         
-        .price { color: #d63031; font-size: 26px; font-weight: bold; margin: 10px 0; }
-        .old-price { font-size: 16px; text-decoration: line-through; color: #777; margin-right: 10px; }
+        .nav-tools { background: white; padding: 10px; display: flex; justify-content: center; gap: 10px; sticky; top: 80px; z-index: 999; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .nav-tools input { padding: 10px; border-radius: 20px; border: 1px solid #ddd; width: 60%; }
+        
+        .cart-icon { position: fixed; top: 100px; right: 20px; background: var(--p); color: white; padding: 15px; border-radius: 50%; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 2000; cursor: pointer; font-weight: bold; }
 
-        .btn { display: block; width: 100%; padding: 12px; border-radius: 10px; font-weight: bold; font-size: 15px; border: none; cursor: pointer; margin-top: 8px; text-decoration: none; box-sizing: border-box; }
-        .voice-btn { background: #6c5ce7; color: white; }
-        .bkash-btn { background: #e2136e; color: white; } /* বিকাশ কালার */
-        .wa-btn { background: #25D366; color: white; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
 
+        /* কার্ড প্রো ডিজাইন */
+        .card { background: white; border-radius: 20px; padding: 15px; border: 1px solid #eee; transition: 0.3s; position: relative; }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; }
+        
+        .price-tag { font-size: 28px; color: var(--p); font-weight: bold; margin: 10px 0; }
+        .bn-num { font-family: inherit; }
+
+        .btn { width: 100%; padding: 12px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; margin-top: 8px; font-size: 15px; transition: 0.2s; display: block; text-decoration: none; text-align: center; }
+        .btn-v { background: var(--v); color: white; }
+        .btn-b { background: #e2136e; color: white; animation: shake 3s infinite; }
+        .btn-w { background: #25D366; color: white; }
+        
+        @keyframes shake { 0%, 100% {transform: scale(1);} 50% {transform: scale(1.05);} }
+
+        /* পেমেন্ট পপআপ */
+        #payment-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 20px; box-shadow: 0 0 100px rgba(0,0,0,0.5); z-index: 5000; width: 90%; max-width: 400px; }
+        
         #gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #fff; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .start-btn { background: #2ed573; padding: 20px 60px; border-radius: 50px; font-size: 22px; color: white; border: none; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body class="notranslate">
 
 <div id="gate">
-    <h1>কুইক বাজার স্যানিটারি শপ</h1>
-    <button class="start-btn" onclick="init()">দোকানে প্রবেশ করুন (বাংলা ভয়েস) 🔊</button>
+    <h1 style="font-size: 40px;">QUICK BAZAR</h1>
+    <p>প্রো-লেভেল স্যানিটারি শপিং এ স্বাগতম</p>
+    <button onclick="startApp()" style="background:#2ed573; color:white; padding:20px 50px; border-radius:50px; font-size:24px; border:none; cursor:pointer;">দোকানে প্রবেশ করুন 🔊</button>
 </div>
 
-<header onclick="speak('আসসালামু আলাইকুম! কুইক বাজারে আপনাদের স্বাগতম। আমাদের এখানে সব ধরণের স্যানিটারি মালে চলছে ২০ পার্সেন্ট স্পেশাল ডিসকাউন্ট। বাজারের সবথেকে সুলভ মূল্যে সেরা মাল নিতে এখনই আমাদের পণ্যগুলো দেখুন। ধন্যবাদ!')">
-    <div class="logo-scroller">
-        📢 কুইক বাজার মেগা সেল — সব স্যানিটারি ফিটিংস এ সরাসরি ২০% ছাড় — প্রিমিয়াম কোয়ালিটি সুলভ মূল্যে 📢
-    </div>
+<div class="cart-icon" onclick="showCart()">🛒 <span id="cart-count">০</span></div>
+
+<header onclick="speak('আসসালামু আলাইকুম কাজী ফেরদৌস ভাই! কুইক বাজারের প্রো লেভেল সাইটে আপনাকে স্বাগতম।')">
+    <marquee scrollamount="12" style="font-size: 26px; font-weight: bold;">📢 কুইক বাজার মেগা সেল — ২০% ডিসকাউন্ট — প্রিমিয়াম কোয়ালিটি সুলভ মূল্যে 📢</marquee>
 </header>
 
-<div class="container" id="product-list"></div>
+<div class="nav-tools">
+    <input type="text" id="src" placeholder="কি খুঁজছেন? (যেমন: কল, বেসিন...)" onkeyup="search()">
+</div>
+
+<div class="container" id="grid"></div>
+
+<div id="payment-modal">
+    <h2 style="color: #e2136e;">বিকাশ পেমেন্ট গেটওয়ে</h2>
+    <div id="memo-content" style="text-align: left; background: #f9f9f9; padding: 10px; border-radius: 10px; margin: 10px 0;"></div>
+    <input type="text" id="cust-name" placeholder="আপনার নাম" style="width: 100%; padding: 10px; margin: 5px 0;">
+    <button onclick="confirmPay()" class="btn btn-b">পেমেন্ট নিশ্চিত করুন</button>
+    <button onclick="closeModal()" class="btn" style="background:#ccc;">বন্ধ করুন</button>
+</div>
 
 <script>
-    function speak(text) {
+    const bnNum = n => String(n).replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+    let cart = 0;
+
+    function speak(t) {
         window.speechSynthesis.cancel();
-        let msg = new SpeechSynthesisUtterance(text);
-        msg.lang = 'bn-BD';
-        msg.rate = 0.9;
-        window.speechSynthesis.speak(msg);
+        let s = new SpeechSynthesisUtterance(t);
+        s.lang = 'bn-BD'; s.rate = 0.9;
+        window.speechSynthesis.speak(s);
     }
 
-    function init() {
+    function startApp() {
         document.getElementById('gate').style.display = 'none';
-        speak('স্বাগতম বন্ধু! কুইক বাজারে বিশ পার্সেন্ট ছাড়ে কেনাকাটা করুন।');
+        speak("স্বাগতম বন্ধু! কুইক বাজারে এখন আপনি পাচ্ছেন প্রিমিয়াম শপিং অভিজ্ঞতা। বিশ পার্সেন্ট ছাড়ে কেনাকাটা শুরু করুন।");
     }
 
-    // ২০টি পণ্যের লিস্ট
-    const products = [
-        {n: "ম্যাজিক কল (SS)", p: 850, d: "মরিচারোধী স্টিল কল।"},
-        {n: "সিরামিক বেসিন", p: 4500, d: "আধুনিক সাদা বেসিন।"},
-        {n: "স্মার্ট কমোড", p: 12000, d: "অটো ফ্লাশ সিস্টেমের কমোড।"},
-        {n: "হাই প্রেসার শাওয়ার", p: 1250, d: "তীব্র পানির প্রবাহ দেবে।"},
-        {n: "বেসিন মিক্সার", p: 2800, d: "গরম ও ঠান্ডা পানির কল।"},
-        {n: "কিচেন সিঙ্ক (Double)", p: 5500, d: "মজবুত স্টিলের সিঙ্ক।"},
-        {n: "হ্যান্ড শাওয়ার", p: 950, d: "সহজে ব্যবহারযোগ্য শাওয়ার।"},
-        {n: "পুশ শাওয়ার সেট", p: 750, d: "উন্নত মানের বাথরুম ফিটিংস।"},
+    const items = [
+        {n: "ম্যাজিক কল (SS)", p: 850, d: "মরিচারোধী স্টিল।"},
+        {n: "সিরামিক বেসিন", p: 4500, d: "রাজকীয় সাদা ডিজাইন।"},
+        {n: "স্মার্ট কমোড", p: 12000, d: "অটো ফ্লাশ সুবিধা।"},
+        {n: "হাই প্রেসার শাওয়ার", p: 1250, d: "তীব্র পানির প্রবাহ।"},
+        {n: "বেসিন মিক্সার", p: 2800, d: "গরম-ঠান্ডা পানির কল।"},
+        {n: "কিচেন ডাবল সিঙ্ক", p: 5500, d: "মজবুত স্টেইনলেস স্টিল।"},
+        {n: "মিরর গ্লাস সেট", p: 2200, d: "উন্নত মানের আয়না।"},
+        {n: "বেসিন ক্যাবিনেট", p: 8500, d: "আধুনিক স্টোরেজ সুবিধা।"},
         {n: "পিভিসি বিবি কক", p: 180, d: "টেকসই প্লাস্টিক কল।"},
-        {n: "বেসিন ক্যাবিনেট", p: 8500, d: "বিলাসবহুল বাথরুম ফার্নিচার।"},
-        {n: "ম্যাজিক পাইপ", p: 120, d: "সহজে বাঁকানো যায় এমন পাইপ।"},
-        {n: "সোপ হোল্ডার", p: 350, d: "স্টিলের সাবান দানি।"},
-        {n: "তাওয়াল রেল", p: 1100, d: "তোয়ালে রাখার মজবুত স্টাইলিশ রড।"},
-        {n: "ফ্লোর ড্রেন", p: 450, d: "পানি নিষ্কাশনের জন্য সেরা।"},
-        {n: "কিচেন ট্যাপ", p: 1400, d: "রান্নাঘরের জন্য আধুনিক কল।"},
-        {n: "গ্লাস সেলফ", p: 1800, d: "জিনিস রাখার কাঁচের তাক।"},
-        {n: "অ্যাঙ্গেল স্টপ কক", p: 550, d: "পানির প্রবাহ নিয়ন্ত্রক কল।"},
-        {n: "মিরর সেট", p: 2200, d: "উন্নত মানের বাথরুম আয়না।"},
-        {n: "বেসিন ওয়েস্ট", p: 300, d: "পানির লাইন কানেক্টর।"},
-        {n: "কনসিল্ড স্টপ কক", p: 1600, d: "দেয়ালের ভেতরের পানির কল।"}
+        {n: "সোপ হোল্ডার", p: 350, d: "স্টিলের সাবান দানি।"}
     ];
 
-    const list = document.getElementById('product-list');
-    products.forEach((item, i) => {
-        let final = Math.floor(item.p * 0.8);
-        let detail = `পণ্যের নাম ${item.n}। দাম মাত্র ${final} টাকা। ${item.d}`;
-        
-        list.innerHTML += `
-            <div class="card">
-                <img src="https://picsum.photos/400/300?random=${i}" alt="Sanitary">
-                <h3 style="font-size:18px;">${item.n}</h3>
-                <div class="price"><span class="old-price">৳${item.p}</span>৳${final}</div>
-                <button class="btn voice-btn" onclick="speak('${detail}')">🔊 বিবরণ শুনুন</button>
-                <a href="#" class="btn bkash-btn">বিকাশ পেমেন্ট করুন</a>
-                <a href="https://wa.me/8801700000000" class="btn wa-btn">WhatsApp অর্ডার</a>
-            </div>
-        `;
-    });
+    function render(data) {
+        const grid = document.getElementById('grid');
+        grid.innerHTML = "";
+        data.forEach((p, i) => {
+            let disc = Math.floor(p.p * 0.8);
+            grid.innerHTML += `
+                <div class="card">
+                    <img src="https://picsum.photos/400/400?random=${i+100}">
+                    <h3 style="margin:10px 0;">${p.n}</h3>
+                    <div class="price-tag">৳${bnNum(disc)}</div>
+                    <button class="btn btn-v" onclick="speak('পণ্যের নাম ${p.n}। বিশ পার্সেন্ট ছাড়ে দাম ${bnNum(disc)} টাকা। ${p.d}')">🔊 বিবরণ শুনুন</button>
+                    <button class="btn btn-b" onclick="openPay('${p.n}', ${disc})">💳 বিকাশ পেমেন্ট</button>
+                    <button class="btn" style="background:#eee;" onclick="addCart()">🛒 কার্টে যোগ করুন</button>
+                    <a href="https://wa.me/8801700000000" class="btn btn-w">WhatsApp অর্ডার</a>
+                </div>`;
+        });
+    }
+
+    function addCart() { cart++; document.getElementById('cart-count').innerText = bnNum(cart); speak("কার্টে যোগ করা হয়েছে।"); }
+    
+    function openPay(name, price) {
+        document.getElementById('memo-content').innerHTML = `<b>পণ্য:</b> ${name}<br><b>পরিশোধযোগ্য:</b> ৳${bnNum(price)}`;
+        document.getElementById('payment-modal').style.display = 'block';
+    }
+
+    function closeModal() { document.getElementById('payment-modal').style.display = 'none'; }
+    
+    function confirmPay() {
+        let name = document.getElementById('cust-name').value;
+        if(!name) { alert("নাম লিখুন!"); return; }
+        speak(`ধন্যবাদ ${name}। আপনার অর্ডারটি গ্রহণ করা হয়েছে।`);
+        alert("অর্ডার সফল হয়েছে!");
+        closeModal();
+    }
+
+    function search() {
+        let v = document.getElementById('src').value.toLowerCase();
+        render(items.filter(i => i.n.toLowerCase().includes(v)));
+    }
+
+    render(items);
 </script>
 </body>
 </html>
